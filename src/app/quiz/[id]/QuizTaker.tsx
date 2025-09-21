@@ -47,6 +47,7 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [startTime, setStartTime] = useState<number>(0);
+  const [showFinishConfirm, setShowFinishConfirm] = useState(false);
 
   useEffect(() => {
     fetchQuiz();
@@ -131,6 +132,15 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
     finishQuiz();
   };
 
+  const handleFinishExam = () => {
+    setShowFinishConfirm(true);
+  };
+
+  const confirmFinishExam = () => {
+    setShowFinishConfirm(false);
+    finishQuiz();
+  };
+
   const finishQuiz = async () => {
     if (!quiz || !quiz.questions) return;
 
@@ -146,7 +156,7 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
 
     setScore(finalScore);
     setQuizCompleted(true);
-    
+
     // Submit quiz result
     await submitQuizResult(correctAnswers, finalScore, timeElapsed);
   };
@@ -608,8 +618,18 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
               Previous
             </button>
 
-            <div className="text-xs md:text-sm text-gray-600 text-center">
-              {Object.keys(answers).length} of {quiz.questions.length} answered
+            <div className="flex flex-col sm:flex-row items-center gap-2">
+              <div className="text-xs md:text-sm text-gray-600 text-center">
+                {Object.keys(answers).length} of {quiz.questions.length} answered
+              </div>
+              <button
+                onClick={handleFinishExam}
+                disabled={isSubmitting}
+                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white px-3 md:px-4 py-2 rounded-lg font-medium transition-colors duration-300 whitespace-nowrap cursor-pointer text-xs md:text-sm"
+              >
+                <i className="ri-flag-line mr-1"></i>
+                Finish Exam
+              </button>
             </div>
 
             {currentQuestion === quiz.questions.length - 1 ? (
@@ -641,6 +661,47 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
             )}
           </div>
         </div>
+
+        {/* Finish Exam Confirmation Dialog */}
+        {showFinishConfirm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full mx-4">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-alert-line text-2xl text-red-600"></i>
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Finish Exam Early?</h3>
+                <p className="text-gray-600">
+                  Are you sure you want to finish the exam? You have answered{' '}
+                  <strong>{Object.keys(answers).length}</strong> out of{' '}
+                  <strong>{quiz?.questions.length}</strong> questions.
+                </p>
+                <p className="text-gray-500 text-sm mt-2">
+                  Unanswered questions will be marked as incorrect.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <button
+                  onClick={confirmFinishExam}
+                  disabled={isSubmitting}
+                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-3 px-6 rounded-xl font-semibold transition-colors duration-300 whitespace-nowrap cursor-pointer"
+                >
+                  <i className="ri-check-line mr-2"></i>
+                  Yes, Finish Exam
+                </button>
+
+                <button
+                  onClick={() => setShowFinishConfirm(false)}
+                  className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-6 rounded-xl font-semibold transition-colors duration-300 whitespace-nowrap cursor-pointer"
+                >
+                  <i className="ri-close-line mr-2"></i>
+                  Continue Quiz
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
