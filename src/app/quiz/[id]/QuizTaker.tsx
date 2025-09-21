@@ -450,7 +450,7 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
                   type="text"
                   value={participantName}
                   onChange={e => setParticipantName(e.target.value)}
-                  className="w-full px-3 md:px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
+                  className="w-full px-3 md:px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base text-gray-900 placeholder-gray-500"
                   placeholder="Enter your name"
                   required
                 />
@@ -463,7 +463,7 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
                   type="email"
                   value={participantEmail}
                   onChange={e => setParticipantEmail(e.target.value)}
-                  className="w-full px-3 md:px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
+                  className="w-full px-3 md:px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base text-gray-900 placeholder-gray-500"
                   placeholder="Enter your email"
                 />
               </div>
@@ -575,7 +575,7 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
                   className={`w-full p-3 md:p-4 text-left border-2 rounded-xl transition-all duration-300 ${
                     answers[currentQuestion] === index + 1
                       ? 'border-blue-500 bg-blue-50 text-blue-800'
-                      : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                      : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-900 hover:text-gray-900'
                   }`}
                 >
                   <div className="flex items-center">
@@ -586,7 +586,7 @@ export default function QuizTaker({ quizId }: QuizTakerProps) {
                     >
                       {answers[currentQuestion] === index + 1 && <i className="ri-check-line text-white text-xs md:text-sm"></i>}
                     </div>
-                    <span className="font-medium text-sm md:text-base">{option}</span>
+                    <span className="font-medium text-sm md:text-base text-gray-900">{option}</span>
                   </div>
                 </button>
               ))
