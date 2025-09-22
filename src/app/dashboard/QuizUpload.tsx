@@ -243,25 +243,15 @@ export default function QuizUpload({ onQuizCreated }: QuizUploadProps) {
 
   const downloadDemoFile = () => {
     if (!mounted) return;
-    
-    const demoData = [
-      ['Question Text', 'Question Type', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Correct Answer', 'Time in seconds', 'Image Link', 'Answer explanation'],
-      ['Text of the question\n\n(required)', 'Question Type\n\n(default is Multiple Choice)', 'Text for option 1\n\n(required in all cases except open-ended & draw questions)', 'Text for option 2\n\n(required in all cases except open-ended & draw questions)', 'Text for option 3\n\n(optional)', 'Text for option 4\n\n(optional)', 'Text for option 5\n\n(optional)', 'The correct option choice (between 1-5).\n\nLeave blank for "Open-Ended", "Poll", "Draw" and "Fill-in-the-Blank".', 'Time in seconds\n\n(optional, default value is 30 seconds)', 'Link of the image\n\n(optional)', 'Explanation for the answer\n(optional)'],
-      ['Which of these is the largest planet in the Solar System?', 'Multiple Choice', 'Earth', 'Mars', 'Mercury', 'Jupiter', 'Pluto', '4', '20', 'https://cdn.pixabay.com/photo/2014/09/08/09/24/solar-system-439046_1280.jpg', 'Jupiter is a gas giant made primarily of hydrogen and helium. Unlike terrestrial planets that have solid surfaces, gas giants like Jupiter don\'t have a well-defined solid surface, allowing them to accumulate more mass in a gaseous form. This composition has allowed Jupiter to grow significantly larger than planets with solid surfaces.'],
-      ['What is the capital of France?', 'Multiple Choice', 'London', 'Berlin', 'Paris', 'Madrid', 'Rome', '3', '15', '', 'Paris is the capital and most populous city of France. It has been the capital since 987 AD, and is located in the north-central part of the country.'],
-      ['Which year did World War II end?', 'Multiple Choice', '1944', '1945', '1946', '1947', '', '2', '25', '', 'World War II ended in 1945 with the surrender of Japan on September 2, 1945, following the atomic bombings of Hiroshima and Nagasaki.'],
-      ['What is the chemical symbol for gold?', 'Multiple Choice', 'Go', 'Gd', 'Au', 'Ag', 'Al', '3', '20', '', 'Au is the chemical symbol for gold, derived from the Latin word "aurum" meaning gold.'],
-      ['Which programming language is known for its use in data science?', 'Multiple Choice', 'JavaScript', 'Python', 'HTML', 'CSS', '', '2', '30', '', 'Python is widely used in data science due to its extensive libraries like NumPy, Pandas, and Scikit-learn.']
-    ];
 
     try {
-      // Create Excel workbook using SheetJS
-      const ws = XLSX.utils.aoa_to_sheet(demoData);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Quiz Template');
-      
-      // Generate Excel file and download
-      XLSX.writeFile(wb, 'demo-quiz-template.xlsx');
+      // Create a link element to download the Excel file from public folder
+      const link = document.createElement('a');
+      link.href = '/QuizizzSampleSpreadsheetUpdated_v2.xlsx';
+      link.download = 'demo-quiz-template.xlsx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (error) {
       console.error('Download error:', error);
       alert('Failed to download demo file. Please try again.');
