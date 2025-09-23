@@ -48,10 +48,10 @@ export default function Footer() {
               <p>&copy; 2024 ExcelToQuiz. All rights reserved.</p>
             </div>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-blue-200">
-              <span>Made with</span>
+              <span>Made By</span>
               <i className="ri-heart-fill text-red-400"></i>
               <a href="https://readdy.ai/?origin=logo" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors cursor-pointer">
-                Readdy
+                AnirbanIT
               </a>
             </div>
           </div>
