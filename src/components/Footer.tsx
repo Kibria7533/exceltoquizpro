@@ -45,7 +45,7 @@ export default function Footer() {
         <div className="border-t border-blue-700/50 pt-6 sm:pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs sm:text-sm text-blue-200">
-              <p>&copy; 2024 ExcelToQuiz. All rights reserved.</p>
+              <p>&copy; 2025 ExcelToQuiz. All rights reserved.</p>
             </div>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-blue-200">
               <span>Made By</span>
